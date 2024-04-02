@@ -21,7 +21,7 @@ Além disso, o aplicativo permitirá que os usuários salvem restaurantes favori
 registro dos locais que desejam visitar ou que já visitaram e gostaram.
 
 ## Quick Start
-Esse quick start foi escrito tendo em mente que você ja tenha uma maquina preparada para desenvolvimento mobile.
+Esse quick start foi escrito tendo em mente que você ja tenha uma maquina preparada para desenvolvimento mobile react native com expo.
 
 - Clonando o repositório!
   
