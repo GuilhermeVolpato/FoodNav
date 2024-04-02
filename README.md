@@ -30,7 +30,7 @@ Esse quick start foi escrito tendo em mente que você ja tenha uma maquina prepa
       
   - Com a pasta ja escolhida, utilize o comando git clone para clonar.
     - Obs: para pegar o link do projeto, clicar no botão azul escrito Code e selecionar "HTTPS"
-    - Exemplo: `git clone https://gitlab.com/ema-software-mobile/mobile/apps/erp/shop.git](https://github.com/GuilhermeVolpato/FoodNav.git`
+    - Exemplo: `git clone https://github.com/GuilhermeVolpato/FoodNav.git`
       
   - Baixando as dependências do projeto.
      - Com o projeto já clonado em sua máquina, abra o projeto em seu editor de código favorito (VSCODE)!
