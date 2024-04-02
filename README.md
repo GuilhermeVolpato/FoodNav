@@ -1,26 +1,27 @@
 # FoodNav
 FoodNav é seu app personalizado para descobrir os melhores restaurantes e pratos. Utilizando dados de localização, preferências alimentares e um sistema de recomendação robusto, oferecemos sugestões que combinam perfeitamente com seu paladar.
 
-## Sobre 
-    
-O FoodNav, sistema de recomendação de restaurantes será uma plataforma móvel desenvolvida em React Native, projetada para simplificar a busca e a escolha de restaurantes
-de acordo com as preferências e o histórico de visitas dos usuários. Quando um usuário acessa o aplicativo, ele será direcionado para criar uma conta ou fazer login usando 
-suas credenciais existentes.
+## O que é o FoodNav?
 
-Após o login, os usuários serão levados a um perfil pessoal, onde poderão fornecer informações detalhadas sobre suas preferências alimentares, restrições dietéticas e experiências
- passadas em restaurantes. Esses dados serão cruciais para personalizar as recomendações de restaurantes feitas pelo aplicativo.
+O FoodNav é um aplicativo móvel desenvolvido em React Native, criado para ajudar você a descobrir os melhores restaurantes que atendem ao seu paladar e preferências culinárias. Seja você um amante da gastronomia ou alguém que busca novas experiências culinárias, o FoodNav está aqui para tornar sua jornada gastronômica mais emocionante e satisfatória.
 
-Ao buscar por restaurantes, os usuários poderão refinar suas pesquisas usando filtros como localização, tipo de culinária e faixa de preço. Com base nessas preferências, 
-o sistema utilizará APIs de geolocalização para obter a localização atual do usuário e APIs de avaliações de restaurantes para acessar avaliações e classificações de usuários.
+## O que ele faz?
 
-Os resultados da pesquisa serão apresentados de forma clara e organizada, com informações detalhadas sobre cada restaurante, incluindo descrição, horário de funcionamento, 
-menu, fotos e avaliações de outros usuários. Os usuários poderão então visualizar a localização dos restaurantes em um mapa interativo e receber direções passo a passo para chegar 
-até lá, com estimativas de tempo de chegada.
+Ao utilizar dados de localização, suas preferências alimentares, histórico de visitas e avaliações de usuários, o FoodNav oferece recomendações altamente personalizadas de restaurantes e pratos, utilizando uma avançada inteligência artificial por trás do sistema. Com apenas alguns cliques, você terá acesso a uma lista selecionada de estabelecimentos que se alinham perfeitamente com seus gostos e restrições dietéticas.
 
-Além disso, o aplicativo permitirá que os usuários salvem restaurantes favoritos em uma lista para acesso posterior. Isso oferecerá aos usuários a conveniência de manter um 
-registro dos locais que desejam visitar ou que já visitaram e gostaram.
+## Por que faz?
 
-## Quick Start
+O FoodNav foi criado com o objetivo de simplificar e aprimorar sua experiência gastronômica. Ao oferecer recomendações confiáveis e de alta qualidade, economizamos seu tempo ao eliminar a necessidade de pesquisar extensivamente por restaurantes em diferentes plataformas. Nosso sistema avançado, alimentado por inteligência artificial, garante que você possa desfrutar ao máximo suas experiências culinárias, sem a incerteza de escolher o lugar certo.
+
+## O que você encontrará aqui?
+
+No FoodNav, você encontrará uma interface intuitiva que permite refinar suas buscas por restaurantes usando filtros como localização, tipo de culinária e faixa de preço. Além disso, cada restaurante listado inclui informações detalhadas, como descrição, horário de funcionamento, menu, fotos e avaliações de outros usuários, garantindo que você tenha todas as informações necessárias para tomar uma decisão informada.
+
+## Aproveite ao máximo suas experiências gastronômicas com o FoodNav!
+
+Com o FoodNav, sua jornada gastronômica será mais do que uma simples refeição - será uma aventura emocionante e memorável. Permita-nos guiá-lo pelos melhores restaurantes que combinam com seu paladar e estilo de vida, e descubra novos sabores e experiências culinárias ao seu redor. Baixe o FoodNav agora e comece a explorar o mundo da gastronomia personalizada!
+
+## Contribua com o desenvolvimento!
 Esse quick start foi escrito tendo em mente que você ja tenha uma maquina preparada para desenvolvimento mobile react native com expo.
 
 - Clonando o repositório!
