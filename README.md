@@ -40,7 +40,7 @@ Esse quick start foi escrito tendo em mente que você ja tenha uma maquina prepa
   - Executando o projeto nos emuladores.
     - Em ambas as plataformas (Windows ou Mac): Execute `npx expo start`
     - No terminal, aparecerá um QRCODE e umas opções abaixo. Para executar no seu dispositivo, escaneie o QRCODE, para rodar no emulador de sua maquina, digite `a` no terminal caso esteja usando windows, digite `i` no terminal caso esteja usando um mac.
-    -  
+    
 ## Tecnologias usadas no projeto
 <div align="center">
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108895-20dc3343-43e3-4a54-a90e-13a4abbc57b9.png" alt="Android Studio" title="Android Studio"/></code>
