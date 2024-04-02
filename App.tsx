@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+
+import { AuthContextProvider } from "src/contexts/AuthContext";
+import { useState } from "react";
+import { Routes } from "src/routes";
+import { OnboardingTour } from "@components/OnboardingTour";
+import { Text, View } from "react-native";
 
 export default function App() {
+  const [showRoutes, setShowRoutes] = useState(true);
+
+  const handleOnDone = () => {
+    setShowRoutes(!showRoutes);
+  };
+
+  if (showRoutes) {
+    return <OnboardingTour onDone={handleOnDone} />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContextProvider>
+      <Routes />
+    </AuthContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
