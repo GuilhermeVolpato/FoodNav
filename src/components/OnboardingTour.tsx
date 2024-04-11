@@ -26,7 +26,7 @@ export function OnboardingTour({ onDone }: { onDone: () => void }) {
       >
         <Image
           source={item.image}
-          contentFit="cover"
+          contentFit="contain"
           style={{ height: "55%", width: "80%", marginBottom: 20 }}
         />
         <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}>
