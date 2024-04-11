@@ -15,7 +15,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [privateRoute, setPrivateRoute] = useState<boolean>(false);
 
   function changeRoute() {
-    console.log("changeRoute");
     setPrivateRoute((prevPrivateRoute) => !prevPrivateRoute);
   }
 
