@@ -26,7 +26,6 @@ export function Map() {
     if (granted) {
       const currentPosition = await getCurrentPositionAsync();
       setCurrentLocation(currentPosition);
-      console.log(currentLocation);
     }
   }
 

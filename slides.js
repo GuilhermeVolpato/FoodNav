@@ -16,14 +16,14 @@ export default [
   {
     key: "3",
     title:
-      "Localização precisa e detalhes de contato para facilitar a sua vida!",
+      "Localização precisa para facilitar a sua vida!",
     description:
       "Utilizamos a localização do seu dispositivo para encontrar os melhores restaurantes perto de você!",
     image: require("@assets/sono.jpg"),
   },
   {
     key: "4",
-    title: "Pesquisas e recomendações personalizadas e aprimoradas por IA",
+    title: "Aprimorado por IA",
     description:
       "Utilizamos inteligência artificial para recomendar os melhores restaurantes para você, baseado nas suas preferências, histórico de visita e pesquisas!",
     image: require("@assets/tadinho.jpg"),
