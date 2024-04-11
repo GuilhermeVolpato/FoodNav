@@ -3,10 +3,10 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { Feather } from "@expo/vector-icons";
-import { Home } from "@screens/Home";
-import { Map } from "@screens/Map";
-import { Profile } from "@screens/Profile";
-import { Restaurant } from "@screens/Restaurant";
+import { Home } from "@screens/Home/Home";
+import { Map } from "@screens/Map/Map";
+import { Profile } from "@screens/Profile/Profile";
+import { Restaurant } from "@screens/Restaurant/Restaurant";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
