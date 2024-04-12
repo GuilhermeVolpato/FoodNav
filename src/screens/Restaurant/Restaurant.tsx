@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import { ViewContainer } from "./styles";
 
 export function Restaurant() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ViewContainer>
       <Text>Restaurante Tela</Text>
-    </View>
+    </ViewContainer>
   );
 }

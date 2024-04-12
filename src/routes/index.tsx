@@ -6,9 +6,5 @@ import { PublicRoute } from "./PublicRoute";
 
 export function Routes() {
   const { boolean } = useAuth();
-  return (
-    <NavigationContainer>
-      {boolean ? <PrivateRoute /> : <PublicRoute />}
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{boolean ? <PrivateRoute /> : <PublicRoute />}</NavigationContainer>;
 }

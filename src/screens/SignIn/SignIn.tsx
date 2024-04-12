@@ -1,30 +1,22 @@
 import { useAuth } from "src/hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { PublicNavigatorRoutesProps } from "src/routes/PublicRoute";
+import { TouchableOpacityStyled, ViewContainer, TextStyled } from "./styles";
 
 export function SignIn() {
   const navigation = useNavigation<PublicNavigatorRoutesProps>();
   const { changeRoute } = useAuth();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <TouchableOpacity
-        style={{ margin: 20 }}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        <Text>Criar conta</Text>
-      </TouchableOpacity>
+    <ViewContainer>
+      <TouchableOpacityStyled onPress={() => navigation.navigate("SignUp")}>
+        <TextStyled>Criar conta</TextStyled>
+      </TouchableOpacityStyled>
 
-      <TouchableOpacity style={{ margin: 20 }} onPress={() => changeRoute()}>
-        <Text>Realizar Login</Text>
-      </TouchableOpacity>
-    </View>
+      <TouchableOpacityStyled onPress={() => changeRoute()}>
+        <TextStyled>Realizar Login</TextStyled>
+      </TouchableOpacityStyled>
+    </ViewContainer>
   );
 }
