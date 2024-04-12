@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { View, Text, Alert } from "react-native";
+import { Text, Alert, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 
-import MapView, { Marker } from "react-native-maps";
+import MapView, { MapStyleElement, Marker } from "react-native-maps";
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -10,22 +10,46 @@ import {
   LocationAccuracy,
 } from "expo-location";
 
-import { styles } from "./styles";
-import darkMapStyle from './darkMapStyle.json'; // Importe o estilo do mapa escuro
+import { LoadingAnimation } from "@components/LoadingAnimation/LoadingAnimation";
+import HeaderSearch from "@components/HeaderSearch/HeaderSearch";
 
+import {
+  ButtonText,
+  TextStyled,
+  TextContainer,
+  TouchableOpacityStyled,
+  ViewContainer,
+  SafeAreaViewContainer,
+} from "./styles";
+import darkMapStyle from "./MapStyle/darkMapStyle.json";
+import { StatusBar } from "expo-status-bar";
 
 export function Map() {
-  const [currentLocation, setCurrentLocation] = useState<LocationObject | null>(
-    null
-  );
+  const [currentLocation, setCurrentLocation] = useState<LocationObject | null>(null);
+  const [isGranted, setIsGranted] = useState(false);
+  const [loading, setLoading] = useState(true);
   const mapRef = useRef<MapView>(null);
 
   async function requestLocationPermission() {
-    const { granted } = await requestForegroundPermissionsAsync();
+    setLoading(true);
+
+    const { granted, canAskAgain } = await requestForegroundPermissionsAsync();
+
+    if (!granted && !canAskAgain) {
+      Alert.alert(
+        "Permissão negada",
+        "Você negou a permissão de localização. Por favor, habilite a permissão nas configurações de seu dispositivo"
+      );
+    }
 
     if (granted) {
+      setLoading(false);
+      setIsGranted(true);
       const currentPosition = await getCurrentPositionAsync();
       setCurrentLocation(currentPosition);
+    } else {
+      setLoading(false);
+      setIsGranted(false);
     }
   }
 
@@ -34,49 +58,82 @@ export function Map() {
   }, []);
 
   useEffect(() => {
-    watchPositionAsync(
-      {
-        accuracy: LocationAccuracy.Balanced,
-        timeInterval: 1000,
-        distanceInterval: 10,
-      },
-      (location) => {
-        setCurrentLocation(location);
-        mapRef.current?.animateCamera({
-          pitch: 45,
-          center: location.coords,
-        });
-      }
+    if (isGranted) {
+      watchPositionAsync(
+        {
+          accuracy: LocationAccuracy.Balanced,
+          timeInterval: 1000,
+          distanceInterval: 10,
+        },
+        (location) => {
+          setCurrentLocation(location);
+          mapRef.current?.animateCamera({
+            pitch: 45,
+            center: location.coords,
+          });
+        }
+      );
+    }
+  }, [isGranted]);
+
+  if (loading) {
+    return (
+      <ViewContainer>
+        <LoadingAnimation loading={loading} size={26} />
+        <Text style={{ paddingTop: 16 }}>Carregando o mapa...</Text>
+      </ViewContainer>
     );
-  }, []);
+  }
+
+  if (!isGranted) {
+    return (
+      <ViewContainer>
+        <TextContainer>
+          <TextStyled>Para ter acesso ao Mapa, é necessário permitir acesso a sua localização</TextStyled>
+          <TouchableOpacityStyled onPress={requestLocationPermission}>
+            <ButtonText>Permitir acesso a localização</ButtonText>
+          </TouchableOpacityStyled>
+        </TextContainer>
+      </ViewContainer>
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        customMapStyle={darkMapStyle as any} // Provide a valid map style object
-        showsTraffic={true}
-        initialRegion={{
-          latitude: currentLocation?.coords.latitude ?? 0,
-          longitude: currentLocation?.coords.longitude ?? 0,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        }}
-      >
-        {
-          // marker bom para marcar um ponto no mapa.
-        }
-        <Marker
-        onPress={() => Alert.alert("Você está aqui", `Sua cordenada atual é ${currentLocation?.coords.latitude}, ${currentLocation?.coords.longitude}`)}
-          coordinate={{
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaViewContainer>
+        <StatusBar translucent={true} backgroundColor={"#212121"} style="light" />
+        <HeaderSearch />
+        <MapView
+          ref={mapRef}
+          style={{
+            flex: 1,
+            width: "100%",
+            backgroundColor: "black",
+          }}
+          customMapStyle={darkMapStyle as MapStyleElement[]}
+          initialRegion={{
             latitude: currentLocation?.coords.latitude ?? 0,
             longitude: currentLocation?.coords.longitude ?? 0,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
           }}
-          title="Você está aqui"
-          description="Sua localização atual"
-        />
-      </MapView>
-    </View>
+        >
+          <Marker
+            onPress={() =>
+              Alert.alert(
+                "Você está aqui",
+                `Sua coordenada atual é ${currentLocation?.coords.latitude}, ${currentLocation?.coords.longitude}`
+              )
+            }
+            coordinate={{
+              latitude: currentLocation?.coords.latitude ?? 0,
+              longitude: currentLocation?.coords.longitude ?? 0,
+            }}
+            title="Você está aqui"
+            description="Sua localização atual"
+          />
+        </MapView>
+      </SafeAreaViewContainer>
+    </TouchableWithoutFeedback>
   );
 }

@@ -1,14 +1,14 @@
 import { useAuth } from "src/hooks/useAuth";
-import { View, Text, TouchableOpacity } from "react-native";
+import { TextStyled, TouchableOpacityStyled, ViewContainer } from "./styles";
 
 export function Profile() {
   const { changeRoute } = useAuth();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", margin: 25 }}>
-      <Text>Profile</Text>
-      <TouchableOpacity style={{margin: 25}} onPress={changeRoute}>
-        <Text>Deslogar</Text>
-      </TouchableOpacity>
-    </View>
+    <ViewContainer>
+      <TextStyled>Profile</TextStyled>
+      <TouchableOpacityStyled style={{ margin: 25 }} onPress={changeRoute}>
+        <TextStyled>Deslogar</TextStyled>
+      </TouchableOpacityStyled>
+    </ViewContainer>
   );
 }

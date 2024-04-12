@@ -1,20 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { PublicNavigatorRoutesProps } from "src/routes/PublicRoute";
+import { ViewContainer, TextStyled } from "./styles";
 
 export function SignUp() {
   const navigation = useNavigation<PublicNavigatorRoutesProps>();
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <ViewContainer>
       <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-        <Text>Voltar para tela de Login</Text>
+        <TextStyled>Voltar para tela de Login</TextStyled>
       </TouchableOpacity>
-    </View>
+    </ViewContainer>
   );
 }
