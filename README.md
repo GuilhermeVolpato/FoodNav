@@ -32,16 +32,27 @@ Esse quick start foi escrito tendo em mente que você ja tenha uma maquina prepa
   - Com a pasta ja escolhida, utilize o comando git clone para clonar.
     - Obs: para pegar o link do projeto, clicar no botão azul escrito Code e selecionar "HTTPS"
     - Exemplo: `git clone https://github.com/GuilhermeVolpato/FoodNav.git`
-      
+  
+- Baixando dependeências!
+  
   - Baixando as dependências do projeto.
      - Com o projeto já clonado em sua máquina, abra o projeto em seu editor de código favorito (VSCODE)!
      - Abrir o terminal integrado com o editor de código. No Vscode, usa os atalhos `Ctrl + ""` ou `Ctrl + j` no Windows e no Mac o comando `Command + ""`.
      - Utilizar o comando `npm install` no terminal integrado para instalar as dependências.
+
+- Executando projeto!
   
   - Executando o projeto nos emuladores.
-    - Em ambas as plataformas (Windows ou Mac): Execute `npx expo start`
+    - Em ambas as plataformas (Windows ou Mac): Execute `npx expo start` na pasta do projeto.
     - No terminal, aparecerá um QRCODE e umas opções abaixo. Para executar no seu dispositivo, escaneie o QRCODE, para rodar no emulador de sua maquina, digite `a` no terminal caso esteja usando windows, digite `i` no terminal caso esteja usando um mac.
-    
+    - Feito a etapa anterior, abrirá o emulador escolhido (a = android, i = iOS), começará a buildar o App e após buildar, tudo pronto para usar e ajudar no desenvolvimento!
+      
+  - Executando o projeto em dispositivo físico.
+    - Baixar nas lojas oficias de seu dispositivo o aplicativo EXPO GO (disponível na Play Store e na App Store)
+    - Em ambas as plataformas (Windows ou Mac): Execute `npx expo start` na pasta do projeto.
+    - No terminal, aparecerá um QRCODE, escaneie com a câmera do seu dispositivo e escolha para abrir o link no EXPO GO
+    - Feito a etapa anterior, o EXPO GO será aberto e começará a buildar o App, após buildar, tudo pronto para usar e ajudar no desenvolvimento!
+
 ## Tecnologias usadas no projeto
 <div align="center">
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108895-20dc3343-43e3-4a54-a90e-13a4abbc57b9.png" alt="Android Studio" title="Android Studio"/></code>
