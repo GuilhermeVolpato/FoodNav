@@ -16,3 +16,7 @@ export const TextStyled = styled.Text`
   color: ${theme.COLORS.GRAY_150};
   font-size: 14px;
 `;
+export const TextErrorStyled = styled.Text`
+  color: ${theme.COLORS.RED};
+  font-size: 14px;
+`;

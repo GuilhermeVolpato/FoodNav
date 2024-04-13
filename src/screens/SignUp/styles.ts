@@ -9,6 +9,6 @@ export const ViewContainer = styled.View`
 `;
 
 export const TextStyled = styled.Text`
-  color: ${theme.COLORS.GRAY_150};
+  color: ${theme.COLORS.RED};
   font-size: 14px;
 `;
