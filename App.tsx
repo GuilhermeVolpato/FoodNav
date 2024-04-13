@@ -7,6 +7,7 @@ import { OnboardingTour } from "@components/OnboardingTour/OnboardingTour";
 
 import { ThemeProvider } from "styled-components";
 import theme from "@theme/index";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [showRoutes, setShowRoutes] = useState(true);

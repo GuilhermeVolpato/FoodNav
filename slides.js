@@ -1,7 +1,7 @@
 export default [
   {
     key: "1",
-    title: "Bem vindo ao FoodNav!",
+    title: "Bem vindo!",
     description:
       "Aqui você encontrará os melhores restaurantes da cidade que é a sua cara!",
     image: require("@assets/dog.jpg"),
