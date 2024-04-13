@@ -24,6 +24,8 @@ export default {
     GRAY_150: "#ffffffc3",
     GRAY_100: "#E1E1E6",
 
+    GRAY_100_TRANSPARENT: "rgba(211,211,211,0.5)",
+
     BLUE_100: "#3182CE",
     BLUE_200: "#2B6CB0",
     BLUE_300: "#2C5282",

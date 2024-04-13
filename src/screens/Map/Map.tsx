@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Text, Alert, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Text, Alert, Platform, TouchableWithoutFeedback, Keyboard, StatusBar } from "react-native";
 
 import MapView, { MapStyleElement, Marker } from "react-native-maps";
 import {
@@ -22,7 +22,8 @@ import {
   SafeAreaViewContainer,
 } from "./styles";
 import darkMapStyle from "./MapStyle/darkMapStyle.json";
-import { StatusBar } from "expo-status-bar";
+import theme from "@theme/index";
+//import { StatusBar } from "expo-status-bar";
 
 export function Map() {
   const [currentLocation, setCurrentLocation] = useState<LocationObject | null>(null);
@@ -101,10 +102,15 @@ export function Map() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaViewContainer>
-        <StatusBar translucent={true} backgroundColor={"#212121"} style="light" />
+        <StatusBar
+          translucent={true}
+          barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"}
+          backgroundColor={theme.COLORS.GRAY_600}
+        />
         <HeaderSearch />
         <MapView
           ref={mapRef}
+          provider="google"
           style={{
             flex: 1,
             width: "100%",

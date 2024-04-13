@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
-import { StatusBar } from "react-native";
+import { Platform, StatusBar } from "react-native";
 import theme from "@theme/index";
 
 export const ViewContainer = styled.View`
@@ -12,7 +12,7 @@ export const ViewContainer = styled.View`
   position: absolute;
   top: 10px;
   z-index: 1;
-  margin-top: ${StatusBar.currentHeight}px;
+  margin-top: ${Platform.OS === "android" ?  StatusBar.currentHeight : 60}px;
 `;
 
 export const FeatherLogo = styled(Feather).attrs({
