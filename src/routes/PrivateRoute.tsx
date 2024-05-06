@@ -8,6 +8,7 @@ import { Map } from "@screens/Map/Map";
 import { Profile } from "@screens/Profile/Profile";
 import { Restaurant } from "@screens/Restaurant/Restaurant";
 import theme from "@theme/index";
+import { PlaceResult } from "src/dto/apiPlacesDTO";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ type PrivateRoutes = {
   Home: undefined;
   Map: undefined;
   Profile: undefined;
-  Teste1: undefined;
+  Restaurant: { item: PlaceResult };
   Teste2: undefined;
 };
 
@@ -34,7 +35,7 @@ function HomeStack() {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Teste1" component={Restaurant} />
+      <Stack.Screen name="Restaurant" component={Restaurant} />
     </Stack.Navigator>
   );
 }

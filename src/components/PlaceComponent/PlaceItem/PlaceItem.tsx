@@ -1,16 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useEffect } from "react";
-import images from "@assets/images.jpg";
-import { ImageWrapper, TheImage, TextContainer } from "./styles";
 import { PlaceResult } from "src/dto/apiPlacesDTO";
-import { useLocation } from "@hooks/useUserLocation";
 import { AntDesign } from "@expo/vector-icons";
+import { useLocation } from "@hooks/useUserLocation";
 
 type PlaceItemProps = {
   data: PlaceResult;
 };
 
-export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
+export default function PlaceItem({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
   const photoUrl =
@@ -49,34 +47,26 @@ export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
 
     setDistance(distance);
   }, [data, currentLocation]);
-
   return (
-    <ImageWrapper>
-      <TheImage source={{ uri: photoUrl }} resizeMode="cover">
-        <TextContainer>
-          <View style={{ flexDirection: "column" }}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5 }}>
-              <View style={{ flex: 3 }}>
-                <Text numberOfLines={1} style={{ fontSize: 12 }}>
-                  {data.name}
-                </Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
-                <Text style={{ fontSize: 13 }}>{data.rating}</Text>
-                <AntDesign name="star" size={16} color="black" />
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5 }}>
-              <View style={{ flex: 3 }}>
-                <Text numberOfLines={2}>{data.vicinity}</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text>{distance?.toFixed(2)} km</Text>
-              </View>
-            </View>
-          </View>
-        </TextContainer>
-      </TheImage>
-    </ImageWrapper>
+    <View
+      style={{ flexDirection: "row", flex: 1, width: "100%", gap: 15, marginBottom: 10, backgroundColor: "#62626231" }}
+    >
+      <Image source={{ uri: photoUrl }} style={{ width: 100, borderRadius: 10 }} />
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 14, marginBottom: 5 }} numberOfLines={2}>
+          {data.name}
+        </Text>
+        <Text style={{ fontSize: 12, marginBottom: 5 }} numberOfLines={2}>
+          {data.vicinity}
+        </Text>
+        <Text style={{ fontSize: 12, marginBottom: 5 }} numberOfLines={2}>
+          {distance?.toFixed(2)} km
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+          <AntDesign name="star" size={20} color="black" />
+          <Text>{data.rating}</Text>
+        </View>
+      </View>
+    </View>
   );
 }

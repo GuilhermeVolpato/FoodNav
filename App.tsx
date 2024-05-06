@@ -1,13 +1,13 @@
 import "react-native-gesture-handler";
 
 import { AuthContextProvider } from "src/contexts/AuthContext";
+import { UserLocationProvider } from "src/contexts/UserLocationContext";
 import { useState } from "react";
 import { Routes } from "src/routes";
 import { OnboardingTour } from "@components/OnboardingTour/OnboardingTour";
 
 import { ThemeProvider } from "styled-components";
 import theme from "@theme/index";
-import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [showRoutes, setShowRoutes] = useState(true);
@@ -23,7 +23,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
-        <Routes />
+        <UserLocationProvider>
+          <Routes />
+        </UserLocationProvider>
       </AuthContextProvider>
     </ThemeProvider>
   );
