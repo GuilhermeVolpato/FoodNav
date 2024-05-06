@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, FlatListProps } from "react-native";
 import React from "react";
 import { PlaceResult } from "src/dto/apiPlacesDTO";
 import { FlatList } from "react-native-gesture-handler";
@@ -15,17 +15,18 @@ export default function PlaceComponent({ data }: PlaceComponentProps) {
   const navigation = useNavigation<PrivatecNavigatorRoutesProps>();
   return (
     <View style={{ flex: 1, width: "95%" }}>
-      <Text style={{ marginTop: 25, marginBottom: 15, fontSize: 16, color: "white" }}>
+      <Text style={{ marginTop: 25, marginBottom: 15, fontSize: 20, color: "white" }}>
         {" "}
-        Encontrado {data.length} restaurantes perto de você{" "}
+        {data.length} Restaurantes Próximos!
       </Text>
 
       <FlatList
         data={data}
         keyExtractor={(item) => item.place_id}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurant", { item: item })}>
-            <PlaceItem data={item} />
+            {index % 4 === 0 ? <RestaurantHomeComponent data={item} /> : <PlaceItem data={item} />}
+
           </TouchableOpacity>
         )}
       />

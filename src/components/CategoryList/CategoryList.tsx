@@ -11,15 +11,15 @@ export default function CategoryList() {
   ];
 
   return (
-    <View>
+    <View style={{flex: 0.6}}>
       <Text style={{ marginTop: 50, marginBottom: 25, fontSize: 25, color: "white" }}> Selecione Categorias </Text>
       <FlatList
         data={categories}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View>
+          <>
             <CategoryComponent data={item} />
-          </View>
+          </>
         )}
         horizontal
       />

@@ -9,6 +9,7 @@ import nearbyPlace from "@services/placesApi/endpoints/placesApiNearbyPlace";
 import { useLocation } from "@hooks/useUserLocation";
 import { PlaceResult, PlacesApiResponse } from "src/dto/apiPlacesDTO";
 import PlaceComponent from "@components/PlaceComponent/PlaceComponent";
+import newPlacesApiNearbyPlace from "@services/placesApi/endpoints/newPlacesApiNearbyPlace";
 
 export function Home() {
   const navigation = useNavigation<PrivatecNavigatorRoutesProps>();
@@ -18,11 +19,12 @@ export function Home() {
 
   async function getNearbyPlaces() {
     if (!currentLocation) return;
+
     try {
-      const response: PlacesApiResponse = await nearbyPlace(
+      const response: PlacesApiResponse = await nearbyPlace( 
         currentLocation.coords.latitude,
         currentLocation.coords.longitude
-      );
+      ); 
       if (response.results.length > 0) {
         setRestaurants(response.results);
         setShowNearbyRestaurants(true);
@@ -34,13 +36,14 @@ export function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      getNearbyPlaces();
+      getNearbyPlaces(); 
     }, [])
   );
-
+  
   return (
     <ViewContainer>
-      <PlaceComponent data={restaurants} />
+      <CategoryList />
+      <PlaceComponent data={restaurants}/>
     </ViewContainer>
   );
 }

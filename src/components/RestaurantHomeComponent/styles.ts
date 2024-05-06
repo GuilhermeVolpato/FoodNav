@@ -3,11 +3,14 @@ import theme from "@theme/index";
 import styled from "styled-components/native";
 
 export const ImageWrapper = styled.View`
-  height: 180px;
-  width: 200px;
+  height: 200px;
+  width: 100%;
   overflow: hidden;
   border-radius: 30px;
-  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 export const TheImage = styled.ImageBackground`

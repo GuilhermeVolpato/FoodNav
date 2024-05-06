@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL;
 const placeApi = axios.create();
 placeApi.defaults.timeout = 5000;
 
-placeApi.defaults.baseURL = BASE_URL;
+placeApi.defaults.baseURL = BASE_URL; 
 
 placeApi.interceptors.request.use(
   (config) => {
