@@ -1,15 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text, Alert, Platform, TouchableWithoutFeedback, Keyboard, StatusBar } from "react-native";
 
 import MapView, { MapStyleElement, Marker } from "react-native-maps";
-import {
-  requestForegroundPermissionsAsync,
-  getCurrentPositionAsync,
-  LocationObject,
-  watchPositionAsync,
-  LocationAccuracy,
-} from "expo-location";
-
 import { LoadingAnimation } from "@components/LoadingAnimation/LoadingAnimation";
 import HeaderSearch from "@components/HeaderSearch/HeaderSearch";
 
@@ -23,59 +15,43 @@ import {
 } from "./styles";
 import darkMapStyle from "./MapStyle/darkMapStyle.json";
 import theme from "@theme/index";
-//import { StatusBar } from "expo-status-bar";
+import { useLocation } from "@hooks/useUserLocation";
+import { PlacesApiResponse } from "src/dto/apiPlacesDTO";
+import placesApiNearbyPlace from "@services/placesApi/endpoints/placesApiNearbyPlace";
 
 export function Map() {
-  const [currentLocation, setCurrentLocation] = useState<LocationObject | null>(null);
-  const [isGranted, setIsGranted] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { currentLocation, isGranted, loading } = useLocation(); // Usando o hook useLocation
+  const [places, setPlaces] = useState<PlacesApiResponse["results"]>([]); // Inicializando o estado places com um array vazio de PlacesApiResponse["results"
   const mapRef = useRef<MapView>(null);
 
-  async function requestLocationPermission() {
-    setLoading(true);
-
-    const { granted, canAskAgain } = await requestForegroundPermissionsAsync();
-
-    if (!granted && !canAskAgain) {
-      Alert.alert(
-        "Permissão negada",
-        "Você negou a permissão de localização. Por favor, habilite a permissão nas configurações de seu dispositivo"
+  async function getNearbyPlaces() {
+    if (!currentLocation) return;
+    try {
+      const response: PlacesApiResponse = await placesApiNearbyPlace(
+        currentLocation.coords.latitude,
+        currentLocation.coords.longitude
       );
-    }
-
-    if (granted) {
-      setLoading(false);
-      setIsGranted(true);
-      const currentPosition = await getCurrentPositionAsync();
-      setCurrentLocation(currentPosition);
-    } else {
-      setLoading(false);
-      setIsGranted(false);
+      console.log(response);
+      if (response.results.length > 0) {
+        setPlaces(response.results);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   useEffect(() => {
-    requestLocationPermission();
-  }, []);
-
-  useEffect(() => {
-    if (isGranted) {
-      watchPositionAsync(
-        {
-          accuracy: LocationAccuracy.Balanced,
-          timeInterval: 1000,
-          distanceInterval: 10,
-        },
-        (location) => {
-          setCurrentLocation(location);
-          mapRef.current?.animateCamera({
-            pitch: 45,
-            center: location.coords,
-          });
-        }
-      );
+    if (isGranted && currentLocation) {
+      mapRef.current?.animateCamera({
+        pitch: 45,
+        center: currentLocation.coords,
+      });
     }
-  }, [isGranted]);
+
+    if (isGranted) {
+      getNearbyPlaces();
+    }
+  }, [isGranted, currentLocation]);
 
   if (loading) {
     return (
@@ -91,7 +67,7 @@ export function Map() {
       <ViewContainer>
         <TextContainer>
           <TextStyled>Para ter acesso ao Mapa, é necessário permitir acesso a sua localização</TextStyled>
-          <TouchableOpacityStyled onPress={requestLocationPermission}>
+          <TouchableOpacityStyled onPress={() => {}}>
             <ButtonText>Permitir acesso a localização</ButtonText>
           </TouchableOpacityStyled>
         </TextContainer>
@@ -138,6 +114,23 @@ export function Map() {
             title="Você está aqui"
             description="Sua localização atual"
           />
+          {places.map((place) => (
+            <Marker
+              key={place.place_id}
+              coordinate={{
+                latitude: place.geometry.location.lat,
+                longitude: place.geometry.location.lng,
+              }}
+              onPress={() =>
+                Alert.alert(
+                  "Restaurante encontrado",
+                  `Na coordenada ${place.geometry.location.lat}, ${place.geometry.location.lng}`
+                )
+              }
+              title={place.name}
+              description={place.vicinity}
+            />
+          ))}
         </MapView>
       </SafeAreaViewContainer>
     </TouchableWithoutFeedback>
