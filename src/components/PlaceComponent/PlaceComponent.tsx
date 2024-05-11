@@ -1,14 +1,14 @@
 import { View, Text, TouchableOpacity, FlatListProps } from "react-native";
 import React from "react";
-import { PlaceResult } from "src/dto/apiPlacesDTO";
 import { FlatList } from "react-native-gesture-handler";
 import PlaceItem from "./PlaceItem/PlaceItem";
 import RestaurantHomeComponent from "@components/RestaurantHomeComponent/RestaurantHomeComponent";
 import { useNavigation } from "@react-navigation/native";
 import { PrivatecNavigatorRoutesProps } from "src/routes/PrivateRoute";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
 
 type PlaceComponentProps = {
-  data: PlaceResult[];
+  data: PlaceDetails[];
 };
 
 export default function PlaceComponent({ data }: PlaceComponentProps) {
@@ -22,11 +22,10 @@ export default function PlaceComponent({ data }: PlaceComponentProps) {
 
       <FlatList
         data={data}
-        keyExtractor={(item) => item.place_id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurant", { item: item })}>
             {index % 4 === 0 ? <RestaurantHomeComponent data={item} /> : <PlaceItem data={item} />}
-
           </TouchableOpacity>
         )}
       />

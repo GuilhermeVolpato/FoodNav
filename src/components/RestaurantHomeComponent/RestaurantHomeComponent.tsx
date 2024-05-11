@@ -5,18 +5,19 @@ import { ImageWrapper, TheImage, TextContainer } from "./styles";
 import { PlaceResult } from "src/dto/apiPlacesDTO";
 import { useLocation } from "@hooks/useUserLocation";
 import { AntDesign } from "@expo/vector-icons";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
 
 type PlaceItemProps = {
-  data: PlaceResult;
+  data: PlaceDetails;
 };
 
 export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
-  const photoUrl =
-    data?.photos?.length > 0
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${data.photos[0].photo_reference}&key=${process.env.API_KEY}`
-      : data.icon;
+
+  const photoUrl = data?.photos[0]?.authorAttributions[0]?.photoUri
+    ? `https:${data?.photos[0]?.authorAttributions[0]?.photoUri}`
+    : "";
 
   function getDistanceFromLatLonInKm(lat1: number | any, lon1: number | any, lat2: number, lon2: number) {
     const R = 6371; // Raio da Terra em Km
@@ -36,8 +37,8 @@ export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
 
   useEffect(() => {
     let restaurantLocation = {
-      latitude: data.geometry.location.lat,
-      longitude: data.geometry.location.lng,
+      latitude: data?.location?.latitude,
+      longitude: data?.location?.longitude,
     };
 
     let distance = getDistanceFromLatLonInKm(
@@ -52,23 +53,23 @@ export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
 
   return (
     <ImageWrapper>
-      <TheImage source={{ uri: photoUrl }} resizeMode="cover">
+      <TheImage source={{ uri: photoUrl }} resizeMode="cover" style={{}}>
         <TextContainer>
           <View style={{ flexDirection: "column" }}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5 }}>
               <View style={{ flex: 3 }}>
                 <Text numberOfLines={1} style={{ fontSize: 12 }}>
-                  {data.name}
+                  {data?.displayName?.text}
                 </Text>
               </View>
               <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
-                <Text style={{ fontSize: 13 }}>{data.rating}</Text>
+                <Text style={{ fontSize: 13 }}>{data?.rating}</Text>
                 <AntDesign name="star" size={16} color="black" />
               </View>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5 }}>
               <View style={{ flex: 3 }}>
-                <Text numberOfLines={2}>{data.vicinity}</Text>
+                <Text numberOfLines={2}>{data?.formattedAddress}</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text>{distance?.toFixed(2)} km</Text>

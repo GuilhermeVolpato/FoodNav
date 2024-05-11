@@ -16,6 +16,9 @@ export const ImageWrapper = styled.View`
 export const TheImage = styled.ImageBackground`
   width: 100%;
   height: 100%;
+  border-radius: 30px;
+
+  background-color: ${theme.COLORS.GRAY_100_TRANSPARENT};
 `;
 
 export const TextContainer = styled.View`

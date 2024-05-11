@@ -9,6 +9,7 @@ import { Profile } from "@screens/Profile/Profile";
 import { Restaurant } from "@screens/Restaurant/Restaurant";
 import theme from "@theme/index";
 import { PlaceResult } from "src/dto/apiPlacesDTO";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ type PrivateRoutes = {
   Home: undefined;
   Map: undefined;
   Profile: undefined;
-  Restaurant: { item: PlaceResult };
+  Restaurant: { item: PlaceDetails };
   Teste2: undefined;
 };
 

@@ -19,7 +19,7 @@ import { useLocation } from "@hooks/useUserLocation";
 import { PlacesApiResponse } from "src/dto/apiPlacesDTO";
 import placesApiNearbyPlace from "@services/placesApi/endpoints/placesApiNearbyPlace";
 
-export function Map() { 
+export function Map() {
   const { currentLocation, isGranted, loading } = useLocation(); // Usando o hook useLocation
   const [places, setPlaces] = useState<PlacesApiResponse["results"]>([]); // Inicializando o estado places com um array vazio de PlacesApiResponse["results"
   const mapRef = useRef<MapView>(null);
@@ -31,6 +31,7 @@ export function Map() {
         currentLocation.coords.latitude,
         currentLocation.coords.longitude
       );
+      console.log(response);
       if (response.results.length > 0) {
         setPlaces(response.results);
       }

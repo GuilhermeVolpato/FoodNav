@@ -1,28 +1,37 @@
-import { Image, Text, View, StyleSheet, TouchableOpacity, Share } from "react-native";
+import { Image, Text, View, StyleSheet, TouchableOpacity, Share, Alert } from "react-native";
 import { ViewContainer } from "./styles";
 import { useRoute } from "@react-navigation/native";
-import { PlaceResult } from "src/dto/apiPlacesDTO";
+import { PlaceResult, PlacesApiResponse } from "src/dto/apiPlacesDTO";
 import { Feather } from "@expo/vector-icons";
 import theme from "@theme/index";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
+import { useEffect, useRef, useState } from "react";
 
+import MapView, { MapStyleElement, Marker } from "react-native-maps";
+import { LoadingAnimation } from "@components/LoadingAnimation/LoadingAnimation";
+import HeaderSearch from "@components/HeaderSearch/HeaderSearch";
+import { useLocation } from "@hooks/useUserLocation";
+import darkMapStyle from "../Map/MapStyle/darkMapStyle.json";
 interface params {
-  item: PlaceResult;
+  item: PlaceDetails;
 }
 
 export function Restaurant() {
+  const { currentLocation, isGranted, loading } = useLocation(); // Usando o hook useLocation
+  const [places, setPlaces] = useState<PlacesApiResponse["results"]>([]); // Inicializando o estado places com um array vazio de PlacesApiResponse["results"
+  const mapRef = useRef<MapView>(null);
   const route = useRoute();
   const { item } = route.params as params;
-  const photoUrl =
-    item?.photos?.length > 0
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photos[0].photo_reference}&key=${process.env.API_KEY}`
-      : item.icon;
+  const photoUrl = item?.photos[0]?.authorAttributions[0]?.photoUri
+    ? `https:${item?.photos[0]?.authorAttributions[0]?.photoUri}`
+    : "";
 
   async function sharePlace() {
     try {
       // pegar imagem para compartilhar também
 
       await Share.share({
-        message: `Check out this place: ${item.name} located at ${item.vicinity}, Shared via FoodNav`,
+        message: `Check out this place: ${item.displayName.text} located at ${item.formattedAddress}, Shared via FoodNav`,
       });
     } catch (error) {
       console.log(error);
@@ -32,7 +41,7 @@ export function Restaurant() {
   return (
     <View style={{ flex: 1, backgroundColor: theme.COLORS.GRAY_500 }}>
       <View style={{ marginHorizontal: 20, marginTop: 10 }}>
-        <Text style={{ fontSize: 26 }}>{item.name}</Text>
+        <Text style={{ fontSize: 26 }}>{item.displayName.text}</Text>
         <View
           style={{
             alignItems: "center",
@@ -47,11 +56,11 @@ export function Restaurant() {
         <Image style={{ width: "100%", height: 200, borderRadius: 15, marginTop: 10 }} source={{ uri: photoUrl }} />
         <Text style={{ fontSize: 16, marginTop: 10, color: theme.COLORS.GRAY_300 }}>
           {"Endereço: "}
-          {item.vicinity}
+          {item.formattedAddress}
         </Text>
-        {item?.opening_hours?.open_now ? (
-          <Text style={{ color: item?.opening_hours?.open_now ? "green" : "red" }}>
-            {item?.opening_hours?.open_now == true ? "Aberto" : "Fechado"}
+        {item?.currentOpeningHours.openNow ? (
+          <Text style={{ color: item?.currentOpeningHours.openNow ? "green" : "red" }}>
+            {item?.currentOpeningHours.openNow == true ? "Aberto" : "Fechado"}
           </Text>
         ) : null}
 
@@ -89,6 +98,55 @@ export function Restaurant() {
             <Text style={{ fontSize: 16 }}>Share</Text>
           </TouchableOpacity>
         </View>
+        <MapView
+          ref={mapRef}
+          provider="google"
+          style={{
+            width: "100%",
+            height: "35%",
+            marginTop: 15,
+            backgroundColor: "black",
+          }}
+          customMapStyle={darkMapStyle as MapStyleElement[]}
+          initialRegion={{
+            latitude: currentLocation?.coords.latitude ?? 0,
+            longitude: currentLocation?.coords.longitude ?? 0,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }}
+        >
+          <Marker
+            onPress={() =>
+              Alert.alert(
+                "Você está aqui",
+                `Sua coordenada atual é ${currentLocation?.coords.latitude}, ${currentLocation?.coords.longitude}`
+              )
+            }
+            coordinate={{
+              latitude: currentLocation?.coords.latitude ?? 0,
+              longitude: currentLocation?.coords.longitude ?? 0,
+            }}
+            title="Você está aqui"
+            description="Sua localização atual"
+          />
+          {places.map((place) => (
+            <Marker
+              key={place.place_id}
+              coordinate={{
+                latitude: place.geometry.location.lat,
+                longitude: place.geometry.location.lng,
+              }}
+              onPress={() =>
+                Alert.alert(
+                  "Restaurante encontrado",
+                  `Na coordenada ${place.geometry.location.lat}, ${place.geometry.location.lng}`
+                )
+              }
+              title={place.name}
+              description={place.vicinity}
+            />
+          ))}
+        </MapView>
       </View>
     </View>
   );

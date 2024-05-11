@@ -1,23 +1,23 @@
 import { View, Text, Image } from "react-native";
 import React, { useEffect } from "react";
-import { PlaceResult } from "src/dto/apiPlacesDTO";
 import { AntDesign } from "@expo/vector-icons";
 import { useLocation } from "@hooks/useUserLocation";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
+import dog from "@assets/dog.jpg";
+import restIcon from "@assets/restIcon.jpg";
 
 type PlaceItemProps = {
-  data: PlaceResult;
+  data: PlaceDetails;
 };
 
 export default function PlaceItem({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
-  const photoUrl =
-    data?.photos?.length > 0
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${data.photos[0].photo_reference}&key=${process.env.API_KEY}`
-      : data.icon;
 
   function getDistanceFromLatLonInKm(lat1: number | any, lon1: number | any, lat2: number, lon2: number) {
-    const R = 6371; // Raio da Terra em Km
+    console.log(lat1, lon1, lat2, lon2);
+    const R = 6371;
+
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
     const a =
@@ -34,15 +34,15 @@ export default function PlaceItem({ data }: PlaceItemProps) {
 
   useEffect(() => {
     let restaurantLocation = {
-      latitude: data.geometry.location.lat,
-      longitude: data.geometry.location.lng,
+      latitude: data?.location?.latitude,
+      longitude: data?.location?.longitude,
     };
 
     let distance = getDistanceFromLatLonInKm(
-      currentLocation?.coords.latitude,
-      currentLocation?.coords.longitude,
-      restaurantLocation.latitude,
-      restaurantLocation.longitude
+      currentLocation?.coords?.latitude,
+      currentLocation?.coords?.longitude,
+      restaurantLocation?.latitude,
+      restaurantLocation?.longitude
     );
 
     setDistance(distance);
@@ -51,20 +51,20 @@ export default function PlaceItem({ data }: PlaceItemProps) {
     <View
       style={{ flexDirection: "row", flex: 1, width: "100%", gap: 15, marginBottom: 10, backgroundColor: "#62626231" }}
     >
-      <Image source={{ uri: photoUrl }} style={{ width: 100, borderRadius: 10 }} />
+      <Image source={restIcon} style={{ width: 100, borderRadius: 10, height: 120 }} />
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, marginBottom: 5 }} numberOfLines={2}>
-          {data.name}
+          {data?.displayName?.text}
         </Text>
         <Text style={{ fontSize: 12, marginBottom: 5 }} numberOfLines={2}>
-          {data.vicinity}
+          {data?.formattedAddress}
         </Text>
         <Text style={{ fontSize: 12, marginBottom: 5 }} numberOfLines={2}>
           {distance?.toFixed(2)} km
         </Text>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
           <AntDesign name="star" size={20} color="black" />
-          <Text>{data.rating}</Text>
+          <Text>{data?.rating}</Text>
         </View>
       </View>
     </View>

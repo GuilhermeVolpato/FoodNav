@@ -10,23 +10,25 @@ import { useLocation } from "@hooks/useUserLocation";
 import { PlaceResult, PlacesApiResponse } from "src/dto/apiPlacesDTO";
 import PlaceComponent from "@components/PlaceComponent/PlaceComponent";
 import newPlacesApiNearbyPlace from "@services/placesApi/endpoints/newPlacesApiNearbyPlace";
+import textSearch from "@services/placesApi/endpoints/textSearch";
+import { PlaceDetails } from "src/dto/newApiPlacesDTO";
 
 export function Home() {
   const navigation = useNavigation<PrivatecNavigatorRoutesProps>();
-  const { currentLocation } = useLocation();
+  const { currentLocation, isGranted } = useLocation();
   const [showNearbyRestaurants, setShowNearbyRestaurants] = useState(false);
-  const [restaurants, setRestaurants] = useState<PlaceResult[]>([]);
+  const [restaurants, setRestaurants] = useState<PlaceDetails[]>([]);
 
   async function getNearbyPlaces() {
     if (!currentLocation) return;
-
+    if (!isGranted) return;
     try {
-      const response: PlacesApiResponse = await nearbyPlace( 
+      const response: PlaceDetails[] = await newPlacesApiNearbyPlace(
         currentLocation.coords.latitude,
         currentLocation.coords.longitude
-      ); 
-      if (response.results.length > 0) {
-        setRestaurants(response.results);
+      );
+      if (response.length > 0) {
+        setRestaurants(response);
         setShowNearbyRestaurants(true);
       }
     } catch (error) {
@@ -36,14 +38,14 @@ export function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      getNearbyPlaces(); 
-    }, [])
+      getNearbyPlaces();
+    }, [isGranted])
   );
-  
+
   return (
     <ViewContainer>
       <CategoryList />
-      <PlaceComponent data={restaurants}/>
+      <PlaceComponent data={restaurants} />
     </ViewContainer>
   );
 }
