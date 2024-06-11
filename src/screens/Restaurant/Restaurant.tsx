@@ -1,4 +1,4 @@
-import { Image, Text, View, StyleSheet, TouchableOpacity, Share, Alert } from "react-native";
+import { Image, Text, View, StyleSheet, TouchableOpacity, Share, Alert, Linking } from "react-native";
 import { ViewContainer } from "./styles";
 import { useRoute } from "@react-navigation/native";
 import { PlaceResult, PlacesApiResponse } from "src/dto/apiPlacesDTO";
@@ -38,6 +38,11 @@ export function Restaurant() {
     }
   }
 
+  const DirectionButton = () => {
+      const url = 'https://www.google.com/maps';
+      Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.COLORS.GRAY_500 }}>
       <View style={{ marginHorizontal: 20, marginTop: 10 }}>
@@ -64,9 +69,10 @@ export function Restaurant() {
           </Text>
         ) : null}
 
+
         <View style={{ marginTop: 10, flexDirection: "row", display: "flex", gap: 10, justifyContent: "space-evenly" }}>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={DirectionButton}
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -100,7 +106,7 @@ export function Restaurant() {
         </View>
         <MapView
           ref={mapRef}
-          provider="google"
+
           style={{
             width: "100%",
             height: "35%",
