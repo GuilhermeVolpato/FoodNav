@@ -38,10 +38,11 @@ export function Restaurant() {
     }
   }
 
-  const DirectionButton = () => {
-      const url = 'https://www.google.com/maps';
-      Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
-  }
+const DirectionButton = ( latitude:any , longitude:any ) => {
+  const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+}
+
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.COLORS.GRAY_500 }}>
@@ -72,7 +73,7 @@ export function Restaurant() {
 
         <View style={{ marginTop: 10, flexDirection: "row", display: "flex", gap: 10, justifyContent: "space-evenly" }}>
           <TouchableOpacity
-            onPress={DirectionButton}
+            onPress={() => DirectionButton( item.location.latitude, item.location.longitude)}
             style={{
               flexDirection: "row",
               alignItems: "center",
