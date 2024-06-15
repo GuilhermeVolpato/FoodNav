@@ -1,23 +1,47 @@
-import theme from "@theme/index";
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const ViewContainer = styled.View`
   flex: 1;
-  justify-content: center;
+  background-color: #000;
+  padding: 20px;
+`;
+
+export const HeaderContainer = styled.View`
+  flex-direction: row;
   align-items: center;
-  background-color: ${theme.COLORS.GRAY_600};
+  margin-bottom: 20px;
 `;
 
-export const TouchableOpacityStyled = styled.TouchableOpacity`
-  margin: 25px;
+export const ProfileImage = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
 `;
 
-export const ButtonText = styled.Text`
-  color: ${theme.COLORS.GRAY_150};
+export const UserInfoContainer = styled.View`
+  margin-left: 15px;
+`;
+
+export const UserName = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+`;
+
+export const UserInfoText = styled.Text`
   font-size: 14px;
+  color: #ccc;
 `;
 
 export const TextStyled = styled.Text`
-  color: ${theme.COLORS.GRAY_150};
-  font-size: 14px;
+  font-size: 16px;
+  color: #fff;
+`;
+
+export const TouchableOpacityStyled = styled.TouchableOpacity`
+  background-color: #006600;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin-top: 10px;
+  align-items: center;
 `;

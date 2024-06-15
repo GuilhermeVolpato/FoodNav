@@ -19,9 +19,9 @@ export function OnboardingTour({ onDone }: { onDone: () => void }) {
 
     // Determinar a posição do texto com base no índice do slide
     if (index === 0) {
-      textPosition = "top"; // texto no topo para o primeiro slide
+      textPosition = "center"; // texto no topo para o primeiro slide
     } else if (index === 1) {
-      textPosition = "top"; // texto na parte inferior para o segundo slide
+      textPosition = "center"; // texto na parte inferior para o segundo slide
     }
 
 
@@ -35,8 +35,17 @@ export function OnboardingTour({ onDone }: { onDone: () => void }) {
           padding: 20,
         }}
       >
-        <View style={{ alignItems: "center", position: textPosition === "top" ? "absolute" : "relative", top: textPosition === "top" ? 50 : undefined, bottom: textPosition === "bottom" ? 50 : undefined }}>
-          <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10, color: "white" }}>
+        <View style={{ alignItems: "center", 
+          position: textPosition === "top" ? "absolute" : "relative",
+            top: textPosition === "top" ? 50 : undefined,
+            bottom: textPosition === "bottom" ? 50 : undefined,
+            backgroundColor: "rgba(0, 0, 0, 0.7)", // Fundo semitransparente
+            padding: 20,
+            borderRadius: 10 }}>
+          <Text style={{ fontSize: 24, fontWeight: "bold",
+            textAlign: "center",
+             marginBottom: 10, 
+             color: "white" }}>
             {item.title}
           </Text>
           <Text style={{ fontSize: 16, textAlign: "center", color: "white" }}>
