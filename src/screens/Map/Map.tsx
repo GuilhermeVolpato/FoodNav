@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Text, Alert, Platform, TouchableWithoutFeedback, Keyboard, StatusBar } from "react-native";
+import { Text, Alert, Platform, TouchableWithoutFeedback, Keyboard, StatusBar, Linking } from "react-native";
 
 import MapView, { MapStyleElement, Marker } from "react-native-maps";
 import { LoadingAnimation } from "@components/LoadingAnimation/LoadingAnimation";
@@ -23,6 +23,13 @@ export function Map() {
   const { currentLocation, isGranted, loading } = useLocation(); // Usando o hook useLocation
   const [places, setPlaces] = useState<PlacesApiResponse["results"]>([]); // Inicializando o estado places com um array vazio de PlacesApiResponse["results"
   const mapRef = useRef<MapView>(null);
+  const openSettings = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('app-settings:');
+    } else {
+      Linking.openSettings();
+    }
+  };
 
   async function getNearbyPlaces() {
     if (!currentLocation) return;
@@ -67,7 +74,7 @@ export function Map() {
       <ViewContainer>
         <TextContainer>
           <TextStyled>Para ter acesso ao Mapa, é necessário permitir acesso a sua localização</TextStyled>
-          <TouchableOpacityStyled onPress={() => {}}>
+          <TouchableOpacityStyled onPress={openSettings}>
             <ButtonText>Permitir acesso a localização</ButtonText>
           </TouchableOpacityStyled>
         </TextContainer>
