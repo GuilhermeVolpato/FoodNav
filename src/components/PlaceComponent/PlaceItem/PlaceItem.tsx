@@ -3,8 +3,6 @@ import React, { useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useLocation } from "@hooks/useUserLocation";
 import { PlaceDetails } from "src/dto/newApiPlacesDTO";
-import dog from "@assets/dog.jpg";
-import restIcon from "@assets/restIcon.jpg";
 
 type PlaceItemProps = {
   data: PlaceDetails;
@@ -13,9 +11,11 @@ type PlaceItemProps = {
 export default function PlaceItem({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
+  const photoUrl = data?.photos[0]?.authorAttributions[0]?.photoUri
+  ? `https:${data?.photos[0]?.authorAttributions[0]?.photoUri}`
+  : "";
 
   function getDistanceFromLatLonInKm(lat1: number | any, lon1: number | any, lat2: number, lon2: number) {
-    console.log(lat1, lon1, lat2, lon2);
     const R = 6371;
 
     const dLat = deg2rad(lat2 - lat1);
@@ -51,7 +51,7 @@ export default function PlaceItem({ data }: PlaceItemProps) {
     <View
       style={{ flexDirection: "row", flex: 1, width: "100%", gap: 15, marginBottom: 10, backgroundColor: "#62626231" }}
     >
-      <Image source={restIcon} style={{ width: 100, borderRadius: 10, height: 120 }} />
+      <Image source={{uri: photoUrl}} style={{ width: 100, borderRadius: 10, height: 120 }} />
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, marginBottom: 5 }} numberOfLines={2}>
           {data?.displayName?.text}

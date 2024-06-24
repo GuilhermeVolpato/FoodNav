@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { FeatherLogo, SearchBar, ViewContainer } from "./styles";
 
-export default function HeaderSearch() {
+export default function HeaderSearch({ onSearch }) {
+  const [query, setQuery] = useState("");
+
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch(query);
+    }
+  };
+
   return (
     <ViewContainer>
-      <FeatherLogo name="map-pin" size={24} color="#ffffff7f" />
-      <SearchBar />
+      <FeatherLogo />
+      <SearchBar
+        value={query}
+        onChangeText={setQuery}
+        onSubmitEditing={handleSearch}
+      />
     </ViewContainer>
   );
 }

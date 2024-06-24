@@ -4,8 +4,7 @@ async function textSearch(query: any, latitude: any, longitude: any) {
   const baseUrl = `https://places.googleapis.com/v1/places:searchText?key=${process.env.API_KEY}`;
 
   const requestBody = {
-    textQuery: "hamburguer",
-    includedType: "fast_food_restaurant",
+    textQuery: "Montalccino Pas",
     locationBias: {
       circle: {
         center: {
@@ -19,8 +18,7 @@ async function textSearch(query: any, latitude: any, longitude: any) {
 
   try {
     const response = await placeApi.post(baseUrl, requestBody, config);
-    console.log(response.data.places[0]);
-    return response.data.places;
+    return response.data.places
   } catch (error) {
     console.error("Erro na pesquisa de texto:", error);
     return null;

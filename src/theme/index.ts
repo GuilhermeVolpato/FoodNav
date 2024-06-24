@@ -16,9 +16,9 @@ export default {
     RED_DARK: "#AA2834",
 
     GRAY_700: "#121214",
-    GRAY_600: "#202024",
-    GRAY_500: "#29292E",
-    GRAY_400: "#323238",
+    GRAY_600: "#F8F8FF",
+    GRAY_500: "#fff",
+    GRAY_400: "#fff",
     GRAY_300: "#7C7C8A",
     GRAY_200: "#C4C4CC",
     GRAY_150: "#ffffffc3",

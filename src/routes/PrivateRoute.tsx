@@ -30,9 +30,9 @@ function HomeStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.COLORS.GRAY_600,
+          backgroundColor: '#fff',
         },
-        headerTintColor: theme.COLORS.GRAY_150,
+        headerTintColor: '#000',
       }}
     >
       <Stack.Screen name="Home" component={Home} />

@@ -10,7 +10,7 @@ export const ViewContainer = styled.View`
   flex-direction: row;
   padding-left: 5%;
   position: absolute;
-  top: 10px;
+  top: 25px;
   z-index: 1;
   margin-top: ${Platform.OS === "android" ?  StatusBar.currentHeight : 60}px;
 `;
@@ -18,7 +18,7 @@ export const ViewContainer = styled.View`
 export const FeatherLogo = styled(Feather).attrs({
   name: "map-pin",
   size: 24,
-  color: theme.COLORS.GRAY_100,
+  color: theme.COLORS.BLUE_400,
 })`
   width: 35px;
 `;
@@ -28,7 +28,7 @@ export const SearchBar = styled.TextInput.attrs({
   placeholderTextColor: theme.COLORS.GRAY_300,
 })`
   border-width: 1px;
-  border-color: ${theme.COLORS.GRAY_300};
+  border-color: "black";
   padding: 4px;
   border-radius: 16px;
   background-color: ${theme.COLORS.GRAY_500};

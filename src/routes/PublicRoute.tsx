@@ -18,9 +18,9 @@ export function PublicRoute() {
       initialRouteName="SignIn"
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.COLORS.GRAY_600,
+          backgroundColor: '#fff',
         },
-        headerTintColor: theme.COLORS.GRAY_150,
+        headerTintColor: '#000',
         animation: "slide_from_right",
         contentStyle: {
           backgroundColor: theme.COLORS.GRAY_600,

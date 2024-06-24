@@ -4,12 +4,14 @@
     "slug": "foodnav",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/logo/ic_launcher1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/logo/ic_launcher1.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8daee5",
+      "height": 100,
+      "width": 100
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
