@@ -1,11 +1,21 @@
+import React from "react";
 import { useAuth } from "src/hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
-import { Text, TextInput, TouchableOpacity } from "react-native";
 import { PublicNavigatorRoutesProps } from "src/routes/PublicRoute";
-import { TouchableOpacityStyled, ViewContainer, TextStyled, TextErrorStyled } from "./styles";
+import {
+  TouchableOpacityStyled,
+  ViewContainer,
+  TextStyled,
+  TextErrorStyled,
+  InputStyled,
+  ButtonStyled,
+  ButtonTextStyled,
+} from "./styles";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
+
+import { Image } from "react-native";
 
 type FormDataProps = {
   email: string;
@@ -18,7 +28,7 @@ export function SignIn() {
 
   const signUpSchema = yup.object({
     email: yup.string().required("Informe o email").email("E-mail inválido"),
-    password: yup.string().required("Informe a senha").min(6, "A senha deve ter pelo menos 6 digitos"),
+    password: yup.string().required("Informe a senha").min(6, "A senha deve ter pelo menos 6 dígitos"),
   });
 
   const {
@@ -30,30 +40,20 @@ export function SignIn() {
   });
 
   const onSubmit = (data: FormDataProps) => {
-    // Aqui você pode manipular os dados do formulário após a validação
-    console.log("Formulário submetido:", data);
-    // Aqui você pode adicionar a lógica para enviar os dados para o backend, por exemplo.
+    changeRoute();
   };
+
   return (
     <ViewContainer>
+      <Image
+        source={require("../../assets/logo/ic_launcher.png")}
+        style={{ width: 120, height: 120, marginBottom: 30 }}
+      />
       <Controller
         control={control}
         name="email"
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={{
-              height: 40,
-              backgroundColor: "white",
-              borderColor: "gray",
-              borderWidth: 1,
-              margin: 10,
-              padding: 5,
-              width: 250,
-            }}
-            onChangeText={onChange}
-            value={value}
-            placeholder="E-mail"
-          />
+          <InputStyled onChangeText={onChange} value={value} placeholder="E-mail" keyboardType="email-address"/>
         )}
       />
       {errors.email && <TextErrorStyled>{errors.email.message}</TextErrorStyled>}
@@ -62,31 +62,18 @@ export function SignIn() {
         control={control}
         name="password"
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={{
-              height: 40,
-              backgroundColor: "white",
-              borderColor: "gray",
-              borderWidth: 1,
-              margin: 10,
-              padding: 5,
-              width: 250,
-            }}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Senha"
-            secureTextEntry
-          />
+          <InputStyled onChangeText={onChange} value={value} placeholder="Senha" secureTextEntry />
         )}
       />
       {errors.password && <TextErrorStyled>{errors.password.message}</TextErrorStyled>}
-      <TouchableOpacityStyled onPress={() => navigation.navigate("SignUp")}>
-        <TextStyled>Criar conta</TextStyled>
-      </TouchableOpacityStyled>
 
-      <TouchableOpacityStyled onPress={() => changeRoute()}>
-        <TextStyled>Realizar Login</TextStyled>
-      </TouchableOpacityStyled>
+      <ButtonStyled onPress={handleSubmit(onSubmit)}>
+        <ButtonTextStyled>Realizar Login</ButtonTextStyled>
+      </ButtonStyled>
+
+      <ButtonStyled onPress={() => navigation.navigate("SignUp")}>
+        <ButtonTextStyled>Cadastrar</ButtonTextStyled>
+      </ButtonStyled>
     </ViewContainer>
   );
 }

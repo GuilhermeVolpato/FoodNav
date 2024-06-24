@@ -14,7 +14,6 @@ type PlaceItemProps = {
 export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
-
   const photoUrl = data?.photos[0]?.authorAttributions[0]?.photoUri
     ? `https:${data?.photos[0]?.authorAttributions[0]?.photoUri}`
     : "";
@@ -53,7 +52,7 @@ export default function RestaurantHomeComponent({ data }: PlaceItemProps) {
 
   return (
     <ImageWrapper>
-      <TheImage source={{ uri: photoUrl }} resizeMode="cover" style={{}}>
+      <TheImage source={{ uri: photoUrl }} resizeMode="contain" style={{}}>
         <TextContainer>
           <View style={{ flexDirection: "column" }}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5 }}>

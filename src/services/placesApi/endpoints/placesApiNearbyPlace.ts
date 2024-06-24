@@ -1,7 +1,6 @@
 import { placeApi } from "../placeApi";
 
 const placesApiNearbyPlace = async (latitude: number, longitude: number) => {
-  console.log("ENTROU");
   const API_KEY = process.env.API_KEY;
   try {
     const response = await placeApi.get(`${process.env.BASE_URL}/nearbysearch/json`, {
@@ -13,7 +12,6 @@ const placesApiNearbyPlace = async (latitude: number, longitude: number) => {
         key: API_KEY,
       },
     });
-    console.log("response", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
