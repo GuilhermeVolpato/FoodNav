@@ -33,7 +33,7 @@ Esse quick start foi escrito tendo em mente que você ja tenha uma maquina prepa
     - Obs: para pegar o link do projeto, clicar no botão azul escrito Code e selecionar "HTTPS"
     - Exemplo: `git clone https://github.com/GuilhermeVolpato/FoodNav.git`
   
-- Baixando dependeências!
+- Baixando dependências!
   
   - Baixando as dependências do projeto.
      - Com o projeto já clonado em sua máquina, abra o projeto em seu editor de código favorito (VSCODE)!
@@ -47,7 +47,7 @@ Esse quick start foi escrito tendo em mente que você ja tenha uma maquina prepa
     - No terminal, aparecerá um QRCODE e umas opções abaixo. Para executar no seu dispositivo, escaneie o QRCODE, para rodar no emulador de sua maquina, digite `a` no terminal caso esteja usando windows, digite `i` no terminal caso esteja usando um mac.
     - Feito a etapa anterior, abrirá o emulador escolhido (a = android, i = iOS), começará a buildar o App e após buildar, tudo pronto para usar e ajudar no desenvolvimento!
       
-  - Executando o projeto em dispositivo físico.
+  - Executando o projeto em dispositivo físico!
     - Baixar nas lojas oficias de seu dispositivo o aplicativo EXPO GO (disponível na Play Store e na App Store)
     - Em ambas as plataformas (Windows ou Mac): Execute `npx expo start` na pasta do projeto.
     - No terminal, aparecerá um QRCODE, escaneie com a câmera do seu dispositivo e escolha para abrir o link no EXPO GO
