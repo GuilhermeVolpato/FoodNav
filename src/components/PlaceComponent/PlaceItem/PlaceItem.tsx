@@ -11,9 +11,8 @@ type PlaceItemProps = {
 export default function PlaceItem({ data }: PlaceItemProps) {
   const [distance, setDistance] = React.useState<number>(0);
   const { currentLocation } = useLocation();
-  const photoUrl = data?.photos[0]?.authorAttributions[0]?.photoUri
-  ? `https:${data?.photos[0]?.authorAttributions[0]?.photoUri}`
-  : "";
+  const photoUrl = `https:${data?.photos[0]?.authorAttributions[0]?.photoUri}`
+ 
 
   function getDistanceFromLatLonInKm(lat1: number | any, lon1: number | any, lat2: number, lon2: number) {
     const R = 6371;
