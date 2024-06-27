@@ -12,6 +12,7 @@ import {
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
+import { useAuth } from '@hooks/useAuth';
 
 type FormDataProps = {
   name: string;
@@ -29,12 +30,13 @@ export function SignUp() {
     password: yup.string().required("Informe a senha").min(6, "A senha deve ter pelo menos 6 dígitos"),
     password_confirm: yup.string().required("Informe a confirmação da senha").oneOf([yup.ref('password')], 'As senhas não conferem')
   });
-
+  const { changeRoute } = useAuth();
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema)
   });
 
   const onSubmit = (data: FormDataProps) => {
+    changeRoute()
   };
 
   return (

@@ -3,8 +3,8 @@ import axios from "axios";
 import { AppError } from "@utils/AppError";
 
 const api = axios.create();
-api.defaults.timeout = 5000;
-api.defaults.baseURL = "https:...";
+api.defaults.timeout = 15000;
+api.defaults.baseURL = "http://127.0.0.1:8099";
 
 api.interceptors.request.use(
   (config) => {

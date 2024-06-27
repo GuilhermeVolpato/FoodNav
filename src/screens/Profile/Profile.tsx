@@ -104,13 +104,17 @@ export function Profile() {
     setModalVisible(!isModalVisible);
   };
 
+  //todo conectar com o api
+  async function savePreferences() {}
+
+  async function getPreferences() {}
   return (
     <ViewContainer>
       <HeaderContainer>
         <ProfileImage source={require("src/assets/1-antigo.jpg")} />
         <UserInfoContainer>
-          <UserName>Nome do Usuário</UserName>
-          <UserInfoText>usuario@exemplo.com</UserInfoText>
+          <UserName>Guilherme</UserName>
+          <UserInfoText>guilherme@gmail.com</UserInfoText>
         </UserInfoContainer>
       </HeaderContainer>
 
